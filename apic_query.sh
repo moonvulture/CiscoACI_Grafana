@@ -14,13 +14,13 @@ pass=$4
 cookiefilename=apic_cookie_$RANDOM
 
 # APIC Login and store session cookie to /etc/telegraf
-curl -s -k -d "<aaaUser name=$user pwd=$pass/>" -c /etc/telegraf/$cookiefilename -X POST https://$apic/api/mo/aaaLogin.xml > /dev/null
+curl -s -k -d "<aaaUser name=$user pwd=$pass/>" -c /etc/telegraf/$cookiefilename -X POST https://$apic/api/aaaLogin.xml > /dev/null
 
 # APIC Query Operation using the session cookie
 curl -s -k -X GET https://$apic$operation -b /etc/telegraf/$cookiefilename
 
 # APIC Logout
-curl -s -k -d "<aaaUser name=$user/>" -X POST https://$apic/api/mo/aaaLogout.json -b /etc/telegraf/$cookiefilename > /dev/null
+curl -s -k -d "<aaaUser name=$user/>" -X POST https://$apic/api/aaLogout.json -b /etc/telegraf/$cookiefilename > /dev/null
 
 # Remove session cookie
 rm /etc/telegraf/$cookiefilename
